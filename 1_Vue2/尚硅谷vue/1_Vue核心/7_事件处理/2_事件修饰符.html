@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件修饰符</title>
+    <!-- 引入开发版本的vue -->
+    <script src="../../js/vue.js"></script> 
+    <style>
+        *{
+            margin-top: 20px;
+        }
+        .demo1{
+            height: 50px;
+            background-color: aqua;
+        }
+        .box1{
+            background-color: blue;
+            padding: 10px;
+        }
+        
+        .box2{
+            background-color: aquamarine;
+        }
+
+        .list{
+            width: 200px;
+            height: 200px;
+            background-color: chartreuse;
+            /* 滚动条 */
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        Vue中的事件修饰符：
+            1. prevent：阻止默认事件（常用）
+            2. stop：阻止事件冒泡（常用）
+            3. once：事件只触发一次（常用）
+            4. capture：使用事件的捕获模式
+            5. self：只有event.target是当前操作的元素时才触发事件
+            6. passive： 事件的默认行为立即执行，无需等待事件回调执行完毕
+     -->
+    <div id="root">
+        <h1>欢迎来到{{name}}学习Vue</h1>
+
+        <!-- prevent：阻止默认事件（常用） -->
+        <a href="https://www.baidu.com//" @click="showInfo">点我提示信息</a>
+
+        <!-- stop：阻止事件冒泡（常用） -->
+        <div class="demo1" @click="showInfo">
+            <button @click.stop="showInfo">点我提示信息</button>
+            <!-- 修饰符可以连续写 -->
+            <a href="https://www.baidu.com//" @click.prevent.stop="showInfo">点我提示信息</a>
+        </div>
+
+        <!-- once：事件只触发一次（常用） -->
+        <button @click.once="showInfo">点我提示信息</button>
+        <hr>
+
+        <!-- capture：使用事件的捕获模式 -->
+        <div class="box1" @click.capture="showMsg(1)">
+            123
+            <div class="box2" @click="showMsg(2)">
+                456
+            </div>
+        </div>
+
+        <!-- self：只有event.target是当前操作的元素时才触发事件 -->
+        <div class="demo2" @click.self="showInfo">
+            <button @click.="showInfo">点我提示信息</button>
+        </div>
+
+        <!-- passive： 事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+        <!-- 这个是滚动条的滚动 -->
+        <!-- <ul @scroll="demo" class="list"> -->
+        <!-- 这个是鼠标的滚动 -->
+        <ul @wheel.passive="demo" class="list"> 
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+     
+
+     <script type="text/javascript">
+        Vue.config.productionTip = false // 组织vue在启动时生成生产提示
+
+        // 创建Vue实例
+        const vm = new Vue({
+            el:'#root',   // el:element 用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串
+            // 只有在data里才会做数据代理和数据劫持
+            data:{  // data用于中用于存储数据，数据供er所指定的容器去使用
+                name: '尚硅谷'
+            },
+            methods:{
+                // 所有被vue管理的函数都写成普通函数，不要箭头函数
+                showInfo(e){
+                    // e.preventDefault(),
+                    // e.stopPropagation() // stop：阻止事件冒泡（常用）
+                    alert('同学你好!')
+                },
+                showInfo(e){
+                    alert('同学你好！')
+                    // console.log(e.target);
+                },
+                showMsg(msg){
+                    console.log(msg);
+                },
+                demo(){
+                    // console.log('@');
+                    for(let i = 0; i < 5000; i++){
+                        console.log("#");
+                    }
+                    console.log("累坏了");
+                }
+            }
+        })
+        
+     </script>
+</body>
+</html>

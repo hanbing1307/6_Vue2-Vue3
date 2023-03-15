@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入vue -->
+    <script src="../../js/vue.js"></script> 
+</head>
+<body>
+    <div id="root">
+        <!-- 
+            如果变化频率高，通常使用v-show，
+            频率低，通常使用v-if
+         -->
+        <!-- 使用v-show做条件渲染 -->
+        <h2 v-show="false">v-show 欢迎学习{{name}}</h2>
+        <h2 v-show="1 === 1">v-show欢迎学习{{name}}</h2>
+        <h2 v-show="1 == 1">v-show欢迎学习{{name}}</h2>
+        <h2 v-show="true">v-show欢迎学习{{name}}</h2>
+        <h2 v-show="a">v-show欢迎学习{{name}}</h2>
+        <!-- 使用v-if做条件渲染 -->
+        <h2 v-if="false">v-if 欢迎学习{{name}}</h2>
+        <h2 v-if="true">v-if欢迎学习{{name}}</h2>
+        <h2 v-if="1 === 1">v-if欢迎学习{{name}}</h2>
+
+        <h2>当前的n值是：{{n}}</h2>
+        <button @click="n++">点我让n+1</button>
+        <!-- n为1时显示angular，为2时显示react，为3时显示vue -->
+        <div v-show="n === 1">Angular</div>
+        <div v-show="n === 2">React</div>
+        <div v-show="n === 3">Vue</div>
+        
+
+        <div v-if="n === 1">Angular2</div>
+        <div v-else-if="n === 1">Angular3</div>
+        <div v-if="n === 2">React2</div>
+        <div v-if="n === 3">Vue2</div>
+        <div v-else>else</div>
+
+        <!-- template只能和v-if使用 -->
+        <template v-if="n === 1">
+            <h2>你好</h2>
+            <h2>vue</h2>
+            <h2>！</h2>
+        </template>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#root",
+            data:{
+                name:'Vue',
+                a:'',
+                n:0
+            },
+        })
+    </script>
+</body>
+</html>

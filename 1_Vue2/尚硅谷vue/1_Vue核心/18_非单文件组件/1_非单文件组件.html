@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非单文件组件</title>
+    <!-- 引入vue -->
+    <script src="../../js/vue.js"></script> 
+</head>
+<body>
+    <div id="root">
+        <!-- 第三步：编写组件标签 -->
+        <h1>{{msg}}</h1>
+        <school></school>
+        <school></school>
+        <hr>
+        <student></student>
+        <student></student>
+        <student></student>
+    </div>
+
+    <script>
+        // 第一步；创建school组件
+        const school = Vue.extend({
+            template:`
+               <div>
+                <h2>学校名称：{{schoolName}}</h2>
+                <h2>学校地址：{{schoolAddress}}</h2>
+                <button @click="showName">点我提示学校名称</button>
+                </div>
+            `,
+            // el:'#root',  // 组件定义时，不需要el配置项，因为最终所有的组件都要被一个vm管理，由vm决定服务谁
+            data() {
+                return {
+                    schoolName:'尚硅谷',
+                    schoolAddress:'北京'
+                }
+            },
+            methods: {
+                showName(){
+                    alert(this.schoolName)
+                }
+            },
+        })
+        // 第一步；创建student组件
+        const student = Vue.extend({
+            template:`
+               <div>
+                <h2>学生名称：{{studentName}}</h2>
+                <h2>学生年龄：{{studentAge}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    studentName:'孙悟空',
+                    studentAge:18
+                }
+            },
+        })
+        // 创建vm
+        new Vue({
+            el:'#root',
+            // 第二步：注册组件(局部注册)
+            data:{
+                msg:'你好'
+            },
+            components:{
+                school,
+                student
+            }
+        })
+
+        // 创建vm
+/*         new Vue({
+            el:'#root',
+            data:{
+                schoolName:'尚硅谷',
+                schoolAddress:'北京',
+                studentName:'孙悟空',
+                studentAge:18
+            },
+        }) */
+    </script>
+</body>
+</html>

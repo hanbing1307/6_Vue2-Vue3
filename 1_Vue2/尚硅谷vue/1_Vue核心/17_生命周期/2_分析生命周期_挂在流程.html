@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>当前的值是{{n}}</h2>
+        <button @click="n++">点击让n+1</button>
+        <button @click="bye">点我销毁vm</button>
+    </div>
+
+    <script>
+        new Vue({
+            el:'#root',
+            data:{
+                n:1
+            },
+            methods: {
+                add(){
+                    this.n++
+                },
+                bye(){
+                    console.log('bye');
+                    this.$destroy()
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+                console.log(this)
+            },
+            created() {
+                console.log('created')
+            },
+            // 这里生命周期函数beforeMount()：
+            // 1、页面呈现的是未经Vue编译的DOM结构
+            // 2、所有对DOM的操作，最终都不生效
+            beforeMount() {
+                console.log('beforeMount')
+
+            },
+            Mounted(){
+                console.log('Mounted');
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate');
+            },
+            updated() {
+                console.log('update')
+            },
+            destroyed() {
+                console.log('destroyed')
+
+            },
+
+
+        })
+    </script>
+</body>
+</html>

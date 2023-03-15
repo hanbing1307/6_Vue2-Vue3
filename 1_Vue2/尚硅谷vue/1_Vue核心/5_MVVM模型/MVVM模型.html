@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVVM模型</title>
+    <!-- 引入开发版本的vue -->
+    <script src="../../js/vue.js"></script> 
+</head>
+<body>
+    <!-- 
+        Vue参考了MVVM模型
+        MVVM模型
+            M：model模型：对应data中的数据
+            V：View视图：模板
+            VM：ViewModel视图模型：Vue实例对象
+
+            View        ViewModel       Model
+                        DOM Listeners
+                        Data Bindings   
+            DOM         Vue             Plain JavaScript Objects （一般JS对象）
+
+        总结：
+            1. data中所有属性，最后都出现在vm身上
+            2. vm身上所有属性以及Vue原型上所有属性，在Vue模板中都可以直接使用
+
+     -->
+
+     <!-- 创建一个容器 -->
+
+     <!-- View -->
+     <div id="root">
+        <h1>学校名称：{{name}}</h1>
+        <h2>学校地址：{{address}}</h2>
+        <h2>测试内容1：{{1 + 1}}</h2>
+        <h2>测试内容2：{{$options}}</h2>
+        <h2>测试内容3：{{$data}}</h2>
+        <h2>测试内容4：{{$emit}}</h2>
+
+     </div>
+
+     <script type="text/javascript">
+    
+        Vue.config.productionTip = false // 组织vue在启动时生成生产提示
+
+        // View model(简称VM)
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                // Model
+                name:'尚硅谷',
+                address:'深圳市',
+                h1:'你好'
+            }
+        })
+        console.log(vm);
+    </script>
+</body>
+</html>
